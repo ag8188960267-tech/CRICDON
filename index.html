@@ -10,17 +10,33 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+
 body{
   min-height:100vh;
   display:flex;
-  align-items:center;
   justify-content:center;
-  background: radial-gradient(circle at 20% 20%, #0f172a, #020617);
-  overflow: hidden;
+  align-items:center;
+  background: radial-gradient(circle at center, #0b0d17 0%, #000000 100%);
+  overflow:hidden;
   color:white;
 }
 
-/* Background floating cricket balls */
+/* Stadium lights overlay */
+.stadium-lights{
+  position:absolute;
+  width:120%;
+  height:120%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 60%);
+  top:-10%; left:-10%;
+  pointer-events:none;
+  animation: rotateLights 20s linear infinite;
+}
+@keyframes rotateLights{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* Floating cricket balls */
 .cricket-ball{
   position:absolute;
   width:50px;
@@ -31,10 +47,11 @@ body{
   animation: float 15s linear infinite;
 }
 @keyframes float{
-  0% {transform: translateY(100vh) translateX(0);}
-  100% {transform: translateY(-100vh) translateX(200px);}
+  0%{transform: translateY(100vh) translateX(0);}
+  100%{transform: translateY(-100vh) translateX(200px);}
 }
 
+/* Main card */
 .card{
   position:relative;
   z-index:2;
@@ -42,105 +59,127 @@ body{
   border-radius:25px;
   padding:50px 40px;
   width:95%;
-  max-width:480px;
+  max-width:500px;
   text-align:center;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+  box-shadow:0 30px 100px rgba(0,0,0,0.8);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 40px 100px rgba(250,204,21,0.6);
+.card:hover{
+  transform: translateY(-12px);
+  box-shadow: 0 40px 120px rgba(250,204,21,0.7);
 }
 
+/* Badge */
 .badge{
   display:inline-block;
   background: linear-gradient(135deg,#facc15,#eab308);
   color:#111827;
-  padding:8px 20px;
+  padding:8px 22px;
   border-radius:50px;
   font-size:14px;
   font-weight:700;
   margin-bottom:20px;
-  box-shadow: 0 6px 20px rgba(250,204,21,0.3);
+  box-shadow:0 6px 25px rgba(250,204,21,0.35);
+  animation: pulseBadge 2s infinite;
+}
+@keyframes pulseBadge{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
 }
 
+/* Title */
 .title{
-  font-size:42px;
+  font-size:46px;
   font-weight:900;
   background: linear-gradient(90deg,#facc15,#eab308);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom:5px;
+  margin-bottom:8px;
+  animation: glow 2s infinite;
+}
+@keyframes glow{
+  0%,100%{text-shadow:0 0 10px #facc15,0 0 20px #eab308;}
+  50%{text-shadow:0 0 20px #facc15,0 0 35px #eab308;}
 }
 
+/* Subtitle */
 .subtitle{
   color:#9ca3af;
   font-size:15px;
   margin-bottom:25px;
 }
 
+/* Divider */
 .divider{
   height:1px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.12);
   margin:25px 0;
 }
 
-.stats{
-  text-align:left;
-  font-size:15px;
-  margin-bottom:25px;
-}
-
+/* Stats */
+.stats{ text-align:left; font-size:15px; margin-bottom:30px; }
 .stat-item{
   display:flex;
   justify-content:space-between;
   padding:14px 0;
   border-bottom:1px solid rgba(255,255,255,0.08);
 }
+.highlight{ color:#facc15; font-weight:700; }
 
-.highlight{
-  color:#facc15;
-  font-weight:700;
-}
-
+/* Join button */
 .join-btn{
   margin-top:20px;
   background: linear-gradient(135deg,#facc15,#eab308);
   color:#111827;
   font-weight:700;
   padding:18px;
-  border-radius:12px;
+  border-radius:15px;
   text-decoration:none;
   display:block;
-  font-size:16px;
+  font-size:17px;
+  box-shadow:0 8px 25px rgba(250,204,21,0.5);
+  position:relative;
+  overflow:hidden;
   transition: transform 0.3s, box-shadow 0.3s;
+}
+.join-btn::before{
+  content:'';
+  position:absolute;
+  top:0; left:-75%;
+  width:50%;
+  height:100%;
+  background:rgba(255,255,255,0.25);
+  transform: skewX(-25deg);
+  transition: all 0.5s;
 }
 .join-btn:hover{
   transform: translateY(-6px);
-  box-shadow: 0 18px 45px rgba(250,204,21,0.7);
+  box-shadow:0 18px 50px rgba(250,204,21,0.7);
 }
+.join-btn:hover::before{ left:120%; }
 
-.footer{
-  font-size:12px;
-  color:#6b7280;
-  margin-top:20px;
-}
+/* Footer */
+.footer{ font-size:12px; color:#6b7280; margin-top:20px; }
 
-/* Glow animation for title */
-@keyframes glow{
-  0%,100% {text-shadow:0 0 5px #facc15,0 0 10px #eab308;}
-  50% {text-shadow:0 0 10px #facc15,0 0 20px #eab308;}
+/* Pulse animation for card */
+@keyframes pulseCard{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.02);}
 }
-.title {animation: glow 2s infinite;}
+.card{ animation: pulseCard 4s infinite; }
 </style>
 </head>
 <body>
+
+<!-- Stadium lights -->
+<div class="stadium-lights"></div>
 
 <!-- Floating cricket balls -->
 <div class="cricket-ball" style="left:10%; animation-duration:18s;"></div>
 <div class="cricket-ball" style="left:70%; width:70px; height:70px; animation-duration:25s;"></div>
 <div class="cricket-ball" style="left:50%; width:40px; height:40px; animation-duration:20s;"></div>
 
+<!-- Main card -->
 <div class="card">
 
 <div class="badge">LIVE MATCH ANALYSIS</div>
@@ -151,27 +190,14 @@ body{
 <div class="divider"></div>
 
 <div class="stats">
-<div class="stat-item">
-<span>IPL 2024 Accuracy</span>
-<span class="highlight">68 / 74 Wins</span>
-</div>
-<div class="stat-item">
-<span>Professional Experience</span>
-<span>12+ Years</span>
-</div>
-<div class="stat-item">
-<span>Active Members</span>
-<span id="counter" class="highlight">10,234+</span>
-</div>
+<div class="stat-item"><span>IPL 2024 Accuracy</span><span class="highlight">68 / 74 Wins</span></div>
+<div class="stat-item"><span>Professional Experience</span><span>12+ Years</span></div>
+<div class="stat-item"><span>Active Members</span><span id="counter" class="highlight">10,234+</span></div>
 </div>
 
-<a href="https://t.me/+pToMSc5OD9QyMzY1" target="_blank" class="join-btn">
-JOIN CRICDON TELEGRAM
-</a>
+<a href="https://t.me/+pToMSc5OD9QyMzY1" target="_blank" class="join-btn">JOIN CRICDON TELEGRAM</a>
 
-<div class="footer">
-Trusted by thousands of cricket followers • 100% Free Updates
-</div>
+<div class="footer">Trusted by thousands of cricket followers • 100% Free Updates</div>
 
 </div>
 
