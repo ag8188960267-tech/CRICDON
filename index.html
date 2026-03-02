@@ -13,63 +13,62 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background: radial-gradient(circle at center, #0b0d17 0%, #000000 100%);
+  background: linear-gradient(135deg,#0ff,#f0f,#06f);
   overflow:hidden;
   color:white;
 }
 
-/* Floating particles */
+/* Floating neon particles */
 .particle{
   position:absolute;
-  width:8px; height:8px;
-  background:#facc15;
+  width:10px;
+  height:10px;
   border-radius:50%;
-  opacity:0.5;
-  animation: floatParticle linear infinite;
+  background:rgba(255,255,255,0.6);
+  filter:blur(2px);
+  animation: float 15s linear infinite;
 }
-@keyframes floatParticle{
-  0% {transform: translateY(100vh) translateX(0);}
-  100% {transform: translateY(-100vh) translateX(200px);}
+@keyframes float{
+  0% {transform:translateY(100vh) translateX(0);}
+  100% {transform:translateY(-100vh) translateX(200px);}
 }
 
 /* Hero Card */
 .hero-card{
   position:relative;
   z-index:2;
-  background: rgba(17,24,39,0.9);
-  border-radius:30px;
+  background: rgba(0,0,0,0.7);
+  border-radius:25px;
   padding:50px 40px;
   width:90%;
-  max-width:520px;
+  max-width:500px;
   text-align:center;
-  box-shadow: 0 40px 120px rgba(250,204,21,0.5);
-  overflow:hidden;
+  box-shadow:0 0 50px rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
 }
 
-/* Glowing title */
+/* Neon Glowing Title */
 .title{
   font-size:48px;
   font-weight:900;
-  background: linear-gradient(90deg,#facc15,#eab308);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:0 0 20px #facc15,0 0 40px #eab308;
+  color:#0ff;
+  text-shadow:0 0 5px #0ff,0 0 20px #f0f,0 0 40px #06f;
   margin-bottom:10px;
-  animation: glow 2s infinite;
+  animation: neonGlow 2s infinite alternate;
 }
-@keyframes glow{
-  0%,100% {text-shadow:0 0 10px #facc15,0 0 20px #eab308;}
-  50% {text-shadow:0 0 25px #facc15,0 0 50px #eab308;}
+@keyframes neonGlow{
+  0%{text-shadow:0 0 5px #0ff,0 0 20px #f0f,0 0 40px #06f;}
+  100%{text-shadow:0 0 20px #0ff,0 0 50px #f0f,0 0 80px #06f;}
 }
 
 /* Subtitle */
 .subtitle{
-  color:#9ca3af;
+  color:#ddd;
   font-size:16px;
   margin-bottom:30px;
 }
 
-/* Curved stats panel */
+/* Stats Panel */
 .stats{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -77,50 +76,50 @@ body{
   margin-bottom:35px;
 }
 .stat-item{
-  background: rgba(250,204,21,0.05);
+  background: linear-gradient(135deg,#0ff,#f0f,#06f);
   border-radius:20px;
   padding:15px;
   text-align:center;
+  color:#000;
+  font-weight:700;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 .stat-item:hover{
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(250,204,21,0.4);
+  box-shadow:0 10px 30px rgba(255,255,255,0.4);
 }
-.stat-label{font-size:13px;color:#9ca3af;margin-bottom:5px;}
-.stat-value{font-weight:700;color:#facc15;font-size:16px;}
 
-/* Gradient join button */
+/* Join Button */
 .join-btn{
   display:inline-block;
   padding:18px 35px;
   font-weight:700;
   font-size:16px;
   border-radius:50px;
-  background: linear-gradient(135deg,#facc15,#eab308);
-  color:#111827;
+  background: linear-gradient(135deg,#0ff,#f0f,#06f);
+  color:#000;
   text-decoration:none;
-  box-shadow:0 10px 30px rgba(250,204,21,0.5);
-  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow:0 10px 30px rgba(255,255,255,0.4);
   position:relative;
   overflow:hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .join-btn:hover{
   transform: translateY(-5px);
-  box-shadow:0 15px 40px rgba(250,204,21,0.7);
+  box-shadow:0 15px 50px rgba(255,255,255,0.7);
 }
 
 /* Footer */
 .footer{
   margin-top:20px;
   font-size:12px;
-  color:#6b7280;
+  color:#ccc;
 }
 </style>
 </head>
 <body>
 
-<!-- Floating particles -->
+<!-- Neon particles -->
 <div class="particle" style="left:10%; animation-duration:18s;"></div>
 <div class="particle" style="left:70%; width:12px; height:12px; animation-duration:20s;"></div>
 <div class="particle" style="left:50%; width:6px; height:6px; animation-duration:22s;"></div>
@@ -131,22 +130,10 @@ body{
   <div class="subtitle">Accurate Cricket Predictions & Premium Insights</div>
 
   <div class="stats">
-    <div class="stat-item">
-      <div class="stat-label">IPL 2024 Accuracy</div>
-      <div class="stat-value">68 / 74 Wins</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Professional Experience</div>
-      <div class="stat-value">12+ Years</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Active Members</div>
-      <div class="stat-value" id="counter">10,234+</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-label">Free Updates</div>
-      <div class="stat-value">100%</div>
-    </div>
+    <div class="stat-item">IPL 2024 Accuracy<br>68 / 74 Wins</div>
+    <div class="stat-item">Experience<br>12+ Years</div>
+    <div class="stat-item">Active Members<br><span id="counter">10,234+</span></div>
+    <div class="stat-item">Free Updates<br>100%</div>
   </div>
 
   <a href="https://t.me/+pToMSc5OD9QyMzY1" target="_blank" class="join-btn">JOIN CRICDON TELEGRAM</a>
