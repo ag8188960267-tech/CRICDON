@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRICDON | Premium Cricket Predictions</title>
-
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-
 body{
   min-height:100vh;
   display:flex;
@@ -21,184 +18,139 @@ body{
   color:white;
 }
 
-/* Stadium lights overlay */
-.stadium-lights{
+/* Floating particles */
+.particle{
   position:absolute;
-  width:120%;
-  height:120%;
-  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 60%);
-  top:-10%; left:-10%;
-  pointer-events:none;
-  animation: rotateLights 20s linear infinite;
-}
-@keyframes rotateLights{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-
-/* Floating cricket balls */
-.cricket-ball{
-  position:absolute;
-  width:50px;
-  height:50px;
+  width:8px; height:8px;
+  background:#facc15;
   border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, #facc15, #eab308);
-  opacity:0.15;
-  animation: float 15s linear infinite;
+  opacity:0.5;
+  animation: floatParticle linear infinite;
 }
-@keyframes float{
-  0%{transform: translateY(100vh) translateX(0);}
-  100%{transform: translateY(-100vh) translateX(200px);}
+@keyframes floatParticle{
+  0% {transform: translateY(100vh) translateX(0);}
+  100% {transform: translateY(-100vh) translateX(200px);}
 }
 
-/* Main card */
-.card{
+/* Hero Card */
+.hero-card{
   position:relative;
   z-index:2;
-  background: rgba(17,24,39,0.95);
-  border-radius:25px;
+  background: rgba(17,24,39,0.9);
+  border-radius:30px;
   padding:50px 40px;
-  width:95%;
-  max-width:500px;
+  width:90%;
+  max-width:520px;
   text-align:center;
-  box-shadow:0 30px 100px rgba(0,0,0,0.8);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover{
-  transform: translateY(-12px);
-  box-shadow: 0 40px 120px rgba(250,204,21,0.7);
+  box-shadow: 0 40px 120px rgba(250,204,21,0.5);
+  overflow:hidden;
 }
 
-/* Badge */
-.badge{
-  display:inline-block;
-  background: linear-gradient(135deg,#facc15,#eab308);
-  color:#111827;
-  padding:8px 22px;
-  border-radius:50px;
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:20px;
-  box-shadow:0 6px 25px rgba(250,204,21,0.35);
-  animation: pulseBadge 2s infinite;
-}
-@keyframes pulseBadge{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.05);}
-}
-
-/* Title */
+/* Glowing title */
 .title{
-  font-size:46px;
+  font-size:48px;
   font-weight:900;
   background: linear-gradient(90deg,#facc15,#eab308);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom:8px;
+  text-shadow:0 0 20px #facc15,0 0 40px #eab308;
+  margin-bottom:10px;
   animation: glow 2s infinite;
 }
 @keyframes glow{
-  0%,100%{text-shadow:0 0 10px #facc15,0 0 20px #eab308;}
-  50%{text-shadow:0 0 20px #facc15,0 0 35px #eab308;}
+  0%,100% {text-shadow:0 0 10px #facc15,0 0 20px #eab308;}
+  50% {text-shadow:0 0 25px #facc15,0 0 50px #eab308;}
 }
 
 /* Subtitle */
 .subtitle{
   color:#9ca3af;
-  font-size:15px;
-  margin-bottom:25px;
+  font-size:16px;
+  margin-bottom:30px;
 }
 
-/* Divider */
-.divider{
-  height:1px;
-  background: rgba(255,255,255,0.12);
-  margin:25px 0;
+/* Curved stats panel */
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-bottom:35px;
 }
-
-/* Stats */
-.stats{ text-align:left; font-size:15px; margin-bottom:30px; }
 .stat-item{
-  display:flex;
-  justify-content:space-between;
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.highlight{ color:#facc15; font-weight:700; }
-
-/* Join button */
-.join-btn{
-  margin-top:20px;
-  background: linear-gradient(135deg,#facc15,#eab308);
-  color:#111827;
-  font-weight:700;
-  padding:18px;
-  border-radius:15px;
-  text-decoration:none;
-  display:block;
-  font-size:17px;
-  box-shadow:0 8px 25px rgba(250,204,21,0.5);
-  position:relative;
-  overflow:hidden;
+  background: rgba(250,204,21,0.05);
+  border-radius:20px;
+  padding:15px;
+  text-align:center;
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.join-btn::before{
-  content:'';
-  position:absolute;
-  top:0; left:-75%;
-  width:50%;
-  height:100%;
-  background:rgba(255,255,255,0.25);
-  transform: skewX(-25deg);
-  transition: all 0.5s;
+.stat-item:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(250,204,21,0.4);
+}
+.stat-label{font-size:13px;color:#9ca3af;margin-bottom:5px;}
+.stat-value{font-weight:700;color:#facc15;font-size:16px;}
+
+/* Gradient join button */
+.join-btn{
+  display:inline-block;
+  padding:18px 35px;
+  font-weight:700;
+  font-size:16px;
+  border-radius:50px;
+  background: linear-gradient(135deg,#facc15,#eab308);
+  color:#111827;
+  text-decoration:none;
+  box-shadow:0 10px 30px rgba(250,204,21,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position:relative;
+  overflow:hidden;
 }
 .join-btn:hover{
-  transform: translateY(-6px);
-  box-shadow:0 18px 50px rgba(250,204,21,0.7);
+  transform: translateY(-5px);
+  box-shadow:0 15px 40px rgba(250,204,21,0.7);
 }
-.join-btn:hover::before{ left:120%; }
 
 /* Footer */
-.footer{ font-size:12px; color:#6b7280; margin-top:20px; }
-
-/* Pulse animation for card */
-@keyframes pulseCard{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.02);}
+.footer{
+  margin-top:20px;
+  font-size:12px;
+  color:#6b7280;
 }
-.card{ animation: pulseCard 4s infinite; }
 </style>
 </head>
 <body>
 
-<!-- Stadium lights -->
-<div class="stadium-lights"></div>
+<!-- Floating particles -->
+<div class="particle" style="left:10%; animation-duration:18s;"></div>
+<div class="particle" style="left:70%; width:12px; height:12px; animation-duration:20s;"></div>
+<div class="particle" style="left:50%; width:6px; height:6px; animation-duration:22s;"></div>
 
-<!-- Floating cricket balls -->
-<div class="cricket-ball" style="left:10%; animation-duration:18s;"></div>
-<div class="cricket-ball" style="left:70%; width:70px; height:70px; animation-duration:25s;"></div>
-<div class="cricket-ball" style="left:50%; width:40px; height:40px; animation-duration:20s;"></div>
+<!-- Hero Card -->
+<div class="hero-card">
+  <div class="title">CRICDON</div>
+  <div class="subtitle">Accurate Cricket Predictions & Premium Insights</div>
 
-<!-- Main card -->
-<div class="card">
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-label">IPL 2024 Accuracy</div>
+      <div class="stat-value">68 / 74 Wins</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Professional Experience</div>
+      <div class="stat-value">12+ Years</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Active Members</div>
+      <div class="stat-value" id="counter">10,234+</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label">Free Updates</div>
+      <div class="stat-value">100%</div>
+    </div>
+  </div>
 
-<div class="badge">LIVE MATCH ANALYSIS</div>
-
-<div class="title">CRICDON</div>
-<div class="subtitle">Accurate Cricket Predictions & Premium Insights</div>
-
-<div class="divider"></div>
-
-<div class="stats">
-<div class="stat-item"><span>IPL 2024 Accuracy</span><span class="highlight">68 / 74 Wins</span></div>
-<div class="stat-item"><span>Professional Experience</span><span>12+ Years</span></div>
-<div class="stat-item"><span>Active Members</span><span id="counter" class="highlight">10,234+</span></div>
-</div>
-
-<a href="https://t.me/+pToMSc5OD9QyMzY1" target="_blank" class="join-btn">JOIN CRICDON TELEGRAM</a>
-
-<div class="footer">Trusted by thousands of cricket followers • 100% Free Updates</div>
-
+  <a href="https://t.me/+pToMSc5OD9QyMzY1" target="_blank" class="join-btn">JOIN CRICDON TELEGRAM</a>
+  <div class="footer">Trusted by thousands of cricket followers • 100% Free Updates</div>
 </div>
 
 <script>
@@ -206,7 +158,7 @@ let count = 10234;
 setInterval(()=>{
   count++;
   document.getElementById("counter").innerText = count.toLocaleString()+"+";
-},5000);
+},4000);
 </script>
 
 </body>
